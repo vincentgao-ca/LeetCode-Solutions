@@ -56,3 +56,46 @@ public:
         return ans;
     }
 };
+
+//Time: O(n), Space:O(1)
+class Solution3 {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+        if (nums.size()<1)
+            return 0;
+        
+        sort(nums.begin(), nums.end());
+        
+        int n = nums.size();
+        bool cons = false;
+        int result = 1;
+        int last = nums[0];
+        int onetime = 1;
+        
+        for(int i=1; i<n; i++) {
+        
+            if (cons == false) {
+                if (last + 1 == nums[i]) {
+                    cons = true;
+                    result = max(result, ++onetime);
+                }
+              
+            }
+            else {
+                if (last +1 == nums[i]) {
+                    result = max(result, ++onetime);
+                }
+                else if ( last != nums[i]) {
+                    cons = false;
+                    onetime =1;
+                }
+            }
+            
+            last = nums[i];
+        }
+        
+        return result;
+        
+    }
+};
